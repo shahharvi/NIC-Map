@@ -21,5 +21,5 @@ df = pd.DataFrame(matches, columns=["nic_code", "nic_description"])
 df['nic_description'] = df['nic_description'].str.strip()
 df.drop_duplicates(inplace=True)
 
-df.to_csv("nic_reference.csv", index=False)
+df.to_csv("data/nic_cleaned_final.csv", index=False)
 print(f"✅ Extracted {len(df)} NIC codes to nic_reference.csv")

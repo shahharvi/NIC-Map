@@ -1,4 +1,9 @@
-pymupdf
-pandas
-sentence-transformers
-faiss-cpu
+pymupdf==1.23.22
+pandas==2.2.2
+transformers==4.41.1
+torch>=2.0.0
+sentence-transformers==2.6.1
+faiss-cpu==1.8.0
+ftfy
+numpy==1.26.4
+flask
