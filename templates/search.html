@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - NIC Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">🔍</div>
+                NIC Map
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/search" class="active">Search</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+            <div class="user-icon">JD</div>
+        </nav>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <h1 class="search-title">Find Your NIC Code</h1>
+            <p class="search-description">
+                Enter your business description to find the most relevant NIC classification codes
+            </p>
+
+            <form class="search-form" id="searchForm">
+                <textarea 
+                    class="search-textarea" 
+                    id="businessDescription" 
+                    placeholder="Enter your business idea, e.g., 'A factory that makes cotton bedsheets'"
+                    required
+                ></textarea>
+                
+                <button type="submit" class="search-button" id="searchButton">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" id="searchIcon">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                    <div class="spinner" id="spinner" style="display: none;"></div>
+                    <span id="buttonText">Submit Search</span>
+                </button>
+            </form>
+
+            <div class="processing-text" id="processingText" style="display: none;">
+                Processing your query...
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section" id="resultsSection">
+                <div class="results-header">
+                    <h2 class="results-title">Search Results</h2>
+                    <p class="results-count" id="resultsCount">Found 5 matching NIC codes for "Cloth manufacture"</p>
+                </div>
+
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>
+                    <div class="logo-icon">🔍</div> NIC Finder
+                </h3>
+                <p>The fastest and most accurate way to find National Industrial Classification codes for your business.
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/how-it-works">How It Works</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li>📧 support@nicfinder.com</li>
+                    <li>📞 +1 (555) 123-4567</li>
+                    <li>📍 New Delhi, India</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>© 2024 NIC Finder. All rights reserved.</div>
+        
+        </div>
+    </footer>
+
+    <!-- Chat Button -->
+    <button class="chat-button" onclick="toggleChat()">💬</button>
+
+    <!-- Chat Button -->
+        <div class="chatbot-container hidden" id="chatbot">
+        <div class="chatbot-header">
+            <div class="chatbot-title">💬 NIC Code Assistant</div>
+            <button class="close-chat" onclick="toggleChat()">×</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="bot-message">
+                Hi! I'm here to help you find the right NIC codes. What's your business about?
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" placeholder="Ask about NIC codes..." id="chatInput"
+                onkeypress="handleChatKeypress(event)">
+            <button class="send-button" onclick="sendMessage()">→</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+</body>
+</html>

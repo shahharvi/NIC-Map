@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIC Finder - Find the Right NIC Code for Your Business</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <!-- <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon"> -->
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">🔍</div>
+                NIC Map
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-buttons">
+                <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+                <a href="#" class="get-started-btn">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="ai-badge">AI-Powered Business Classification</div>
+            <h1>Find the Right <span class="highlight">NIC Code</span> for Your Business</h1>
+            <p>Enter your business description, and our AI will instantly match it with official National Industrial
+                Classification codes. Save time and ensure accuracy.</p>
+
+            <div class="search-container">
+                <!-- <input type="text" class="search-input" placeholder="e.g., small factory making cotton bedsheets" id="businessDescription">
+                <button class="search-btn" onclick="searchNIC()">Search Now</button>  -->
+            </div>
+
+            <div class="try-examples">
+                <!-- <span>Try:</span>
+                <button class="example-btn" onclick="fillExample('Software development company')">Software development company</button>
+                <button class="example-btn" onclick="fillExample('Textile manufacturing')">Textile manufacturing</button>
+                <button class="example-btn" onclick="fillExample('Food delivery service')">Food delivery service</button>
+                <button class="example-btn" onclick="fillExample('Construction business')">Construction business</button> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="section-container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Get accurate NIC codes in just three simple steps</p>
+
+            <div class="steps">
+                <div class="step step-1">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">✏️</div>
+                    <h3>Describe Your Business</h3>
+                    <p>Simply enter a description of your business idea or existing operation in plain English.</p>
+                </div>
+
+                <div class="step step-2">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">🧠</div>
+                    <h3>AI Analysis</h3>
+                    <p>Our advanced AI analyzes your description and matches it against official NIC classifications.
+                    </p>
+                </div>
+
+                <div class="step step-3">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">✅</div>
+                    <h3>Get Results Instantly</h3>
+                    <p>Receive the most relevant NIC codes with official descriptions and confidence scores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>
+                    <div class="logo-icon">🔍</div> NIC Finder
+                </h3>
+                <p>The fastest and most accurate way to find National Industrial Classification codes for your business.
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/how-it-works">How It Works</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li>📧 support@nicfinder.com</li>
+                    <li>📞 +1 (555) 123-4567</li>
+                    <li>📍 New Delhi, India</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>© 2024 NIC Finder. All rights reserved.</div>
+            <!-- <div class="powered-by">Powered by AI • Built with <span class="heart">❤️</span></div> -->
+        </div>
+    </footer>
+
+    <!-- Chat Button -->
+    <button class="chat-button" onclick="toggleChat()">💬</button>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot-container hidden" id="chatbot">
+        <div class="chatbot-header">
+            <div class="chatbot-title">💬 NIC Code Assistant</div>
+            <button class="close-chat" onclick="toggleChat()">×</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="bot-message">
+                Hi! I'm here to help you find the right NIC codes. What's your business about?
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" placeholder="Ask about NIC codes..." id="chatInput"
+                onkeypress="handleChatKeypress(event)">
+            <button class="send-button" onclick="sendMessage()">→</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+
+</body>
+
+</html>

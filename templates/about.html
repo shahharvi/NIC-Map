@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - NIC Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">🔍</div>
+                NIC Map
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/about" class="active">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+            <div class="user-icon">JD</div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="breadcrumb">About Our Platform</div>
+        <h1 class="hero-title">Simplifying Business Classification</h1>
+        <p class="hero-description">
+            We leverage advanced AI technology to help businesses find their perfect NIC classification codes, 
+            making regulatory compliance and business registration seamless and accurate.
+        </p>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="mission-content">
+            <h2>Our Mission</h2>
+            <p>
+                To democratize access to accurate business classification by providing an intelligent, 
+                user-friendly platform that eliminates the complexity of navigating traditional NIC code databases.
+            </p>
+            <p>
+                We believe every entrepreneur and business owner should focus on building their business, 
+                not struggling with bureaucratic classifications.
+            </p>
+        </div>
+
+        <div class="mission-features">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h3>Precision Matching</h3>
+                    <p>AI-powered algorithms ensure accurate NIC code suggestions</p>
+                </div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h3>Instant Results</h3>
+                    <p>Get relevant classifications in seconds, not hours</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="values-container">
+            <div class="values-header">
+                <h2>Our Core Values</h2>
+                <p>The principles that guide our platform development and user experience</p>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1.5V1.45C14.8 1.2 14.4 1 14 1H10C9.6 1 9.2 1.2 9 1.45V1.5L3 7V9H21Z"/>
+                            <circle cx="7" cy="18" r="2"/>
+                            <circle cx="17" cy="18" r="2"/>
+                            <path d="M5 16L7 18L17 18L19 16"/>
+                        </svg>
+                    </div>
+                    <h3>User-Centric</h3>
+                    <p>Every feature is designed with our users' needs and experiences at the forefront</p>
+                </div>
+
+                <div class="value-item">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3>Excellence</h3>
+                    <p>We strive for the highest accuracy and quality in every classification we provide</p>
+                </div>
+
+                <div class="value-item">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>Continuously improving our AI technology to better serve the business community</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>Ready to Find Your NIC Code?</h2>
+            <p>Join thousands of businesses who have simplified their classification process with our platform</p>
+            
+            <div class="cta-buttons">
+                <a href="/search" class="btn btn-primary">Start Searching</a>
+                <a href="/contact" class="btn btn-secondary">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+       <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>
+                    <div class="logo-icon">🔍</div> NIC Finder
+                </h3>
+                <p>The fastest and most accurate way to find National Industrial Classification codes for your business.
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/how-it-works">How It Works</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li>📧 support@nicfinder.com</li>
+                    <li>📞 +1 (555) 123-4567</li>
+                    <li>📍 New Delhi, India</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>© 2024 NIC Finder. All rights reserved.</div>
+            
+        </div>
+    </footer>
+
+    <!-- Chat Button -->
+    <button class="chat-button" onclick="toggleChat()">💬</button>
+    
+    <!-- Chat Button -->
+        <div class="chatbot-container hidden" id="chatbot">
+        <div class="chatbot-header">
+            <div class="chatbot-title">💬 NIC Code Assistant</div>
+            <button class="close-chat" onclick="toggleChat()">×</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="bot-message">
+                Hi! I'm here to help you find the right NIC codes. What's your business about?
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" placeholder="Ask about NIC codes..." id="chatInput"
+                onkeypress="handleChatKeypress(event)">
+            <button class="send-button" onclick="sendMessage()">→</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+</body>
+</html>

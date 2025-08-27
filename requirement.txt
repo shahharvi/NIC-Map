@@ -7,3 +7,5 @@ faiss-cpu==1.8.0
 ftfy
 numpy==1.26.4
 flask
+psycopg2-binary
+flask-sqlalchemy
