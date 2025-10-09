@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIC Finder - Search Analytics</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/analytics.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fas fa-search"></i>
+            NIC Finder
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/admin_dashboard">
+                    <i class="fas fa-th-large"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin_search-analytics">
+                    <i class="fas fa-chart-bar"></i>
+                    Search Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/feedback" >
+                    <i class="fas fa-comments"></i>
+                    Feedback
+                </a>
+            </li>
+            <li class="nav-item">
+                <!-- <a href="/admin/settings" >
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a> -->
+            </li>
+        </ul>
+
+        <div class="logout-section">
+            <a href="/login" class="logout-link">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Total Searches Today</div>
+                    <div class="stat-icon search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="stat-value">1,247</div>
+                <div class="stat-change positive">+15.2% from yesterday</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Success Rate</div>
+                    <div class="stat-icon success-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+                <div class="stat-value">94.2%</div>
+                <div class="stat-change positive">+2.1% from yesterday</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Avg Response Time</div>
+                    <div class="stat-icon time-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+                <div class="stat-value">0.82s</div>
+                <div class="stat-change negative">-12.5% from yesterday</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Peak Hour</div>
+                    <div class="stat-icon peak-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                </div>
+                <div class="stat-value">2:00 PM</div>
+                <div class="stat-change positive">1500-1600 from yesterday</div>
+            </div>
+        </div>
+
+        <div class="content-section full-width" style="margin-bottom: 2rem;">
+            <h3 class="section-title">Search Pattern (24h)</h3>
+            <p class="section-subtitle">Hourly search volume distribution</p>
+            
+            <div class="chart-container">
+                <div class="time-slot">
+                    <div class="time-label">00:00</div>
+                    <div class="bar" style="height: 30%;"></div>
+                    <div class="bar-value">12</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">02:00</div>
+                    <div class="bar" style="height: 20%;"></div>
+                    <div class="bar-value">8</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">04:00</div>
+                    <div class="bar" style="height: 35%;"></div>
+                    <div class="bar-value">15</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">06:00</div>
+                    <div class="bar" style="height: 60%;"></div>
+                    <div class="bar-value">28</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">08:00</div>
+                    <div class="bar" style="height: 85%;"></div>
+                    <div class="bar-value">45</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">10:00</div>
+                    <div class="bar" style="height: 95%;"></div>
+                    <div class="bar-value">67</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">12:00</div>
+                    <div class="bar" style="height: 98%;"></div>
+                    <div class="bar-value">89</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">14:00</div>
+                    <div class="bar" style="height: 100%;"></div>
+                    <div class="bar-value">123</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">16:00</div>
+                    <div class="bar" style="height: 90%;"></div>
+                    <div class="bar-value">98</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">18:00</div>
+                    <div class="bar" style="height: 75%;"></div>
+                    <div class="bar-value">76</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">20:00</div>
+                    <div class="bar" style="height: 55%;"></div>
+                    <div class="bar-value">54</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">22:00</div>
+                    <div class="bar" style="height: 40%;"></div>
+                    <div class="bar-value">32</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-section">
+                <h3 class="section-title">Top Search Queries</h3>
+                <p class="section-subtitle">Most popular user search terms today</p>
+                
+                <div class="query-item">
+                    <div class="query-left">
+                        <div class="query-rank">#1</div>
+                        <div class="query-text">"software development company"</div>
+                    </div>
+                    <div class="query-stats">
+                        <div class="search-count">247 searches</div>
+                        <div class="success-rate success-high">98% success</div>
+                    </div>
+                </div>
+
+                <div class="query-item">
+                    <div class="query-left">
+                        <div class="query-rank">#2</div>
+                        <div class="query-text">"textile manufacturing"</div>
+                    </div>
+                    <div class="query-stats">
+                        <div class="search-count">189 searches</div>
+                        <div class="success-rate success-high">95% success</div>
+                    </div>
+                </div>
+
+                <div class="query-item">
+                    <div class="query-left">
+                        <div class="query-rank">#3</div>
+                        <div class="query-text">"food processing unit"</div>
+                    </div>
+                    <div class="query-stats">
+                        <div class="search-count">156 searches</div>
+                        <div class="success-rate success-medium">92% success</div>
+                    </div>
+                </div>
+
+                <div class="query-item">
+                    <div class="query-left">
+                        <div class="query-rank">#4</div>
+                        <div class="query-text">"construction business"</div>
+                    </div>
+                    <div class="query-stats">
+                        <div class="search-count">134 searches</div>
+                        <div class="success-rate success-medium">89% success</div>
+                    </div>
+                </div>
+
+                <div class="query-item">
+                    <div class="query-left">
+                        <div class="query-rank">#5</div>
+                        <div class="query-text">"digital marketing agency"</div>
+                    </div>
+                    <div class="query-stats">
+                        <div class="search-count">98 searches</div>
+                        <div class="success-rate success-high">96% success</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="section-title">Most Matched NIC Codes</h3>
+                <p class="section-subtitle">Classification codes with highest search volume</p>
+
+                <div class="nic-matched-item">
+                    <div class="nic-left">
+                        <div class="nic-rank">Rank #1</div>
+                        <div class="nic-info">
+                            <h4>62010</h4>
+                            <div class="nic-description">Computer programming activities</div>
+                        </div>
+                    </div>
+                    <div class="nic-stats">
+                        <div class="nic-count">347</div>
+                        <div class="nic-percentage">12.4% of total</div>
+                    </div>
+                </div>
+
+                <div class="nic-matched-item">
+                    <div class="nic-left">
+                        <div class="nic-rank">Rank #2</div>
+                        <div class="nic-info">
+                            <h4>13101</h4>
+                            <div class="nic-description">Preparation and spinning of textile fibres</div>
+                        </div>
+                    </div>
+                    <div class="nic-stats">
+                        <div class="nic-count">289</div>
+                        <div class="nic-percentage">10.3% of total</div>
+                    </div>
+                </div>
+
+                <div class="nic-matched-item">
+                    <div class="nic-left">
+                        <div class="nic-rank">Rank #3</div>
+                        <div class="nic-info">
+                            <h4>10890</h4>
+                            <div class="nic-description">Manufacture of other food products n.e.c.</div>
+                        </div>
+                    </div>
+                    <div class="nic-stats">
+                        <div class="nic-count">234</div>
+                        <div class="nic-percentage">8.4% of total</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/static/js/analytics.js"></script>
+</body>
+</html>

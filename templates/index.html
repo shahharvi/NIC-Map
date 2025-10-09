@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NIC Finder - Find the Right NIC Code for Your Business</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/change_password.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon"> -->
 </head>
 
@@ -25,10 +28,31 @@
                     <li><a href="/contact">Contact</a></li>
                 </ul>
             </nav>
+            {% if session.get('user_id') %}
+            <div class="user-dropdown">
+                <div class="user-icon" onclick="toggleUserMenu()">
+                    {{ session['user_name'][0:1]|upper }}{{ session['user_name'].split(' ')[-1][0:1]|upper if session['user_name'].count(' ') else '' }}
+                </div>
+                <div class="user-menu" id="userMenu" style="display:none;">
+                    <div class="user-info">
+                        <div class="user-name">{{ session['user_name'] }}</div>
+                        <div class="user-email">{{ session.get('user_email', '') }}</div>
+                    </div>
+                    <div class="user-links">
+                        <a href="/"><span class="nav-icon">🏠</span>Home</a>
+                        <a href="#" onclick="openChangePassword(); return false;"><span class="nav-icon">👤</span>Change Password</a>
+                    </div>
+                    <div class="logout-link">
+                        <a href="{{ url_for('logout') }}" style="color: #e74c3c;"><span>↩️</span> Logout</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
             <div class="nav-buttons">
                 <a href="{{ url_for('login') }}" class="login-btn">Login</a>
-                <a href="#" class="get-started-btn">Get Started</a>
+                <a href="{{ url_for('register') }}" class="get-started-btn">Register</a>
             </div>
+            {% endif %}
         </div>
     </header>
 
@@ -42,16 +66,10 @@
                 Classification codes. Save time and ensure accuracy.</p>
 
             <div class="search-container">
-                <!-- <input type="text" class="search-input" placeholder="e.g., small factory making cotton bedsheets" id="businessDescription">
-                <button class="search-btn" onclick="searchNIC()">Search Now</button>  -->
             </div>
 
             <div class="try-examples">
-                <!-- <span>Try:</span>
-                <button class="example-btn" onclick="fillExample('Software development company')">Software development company</button>
-                <button class="example-btn" onclick="fillExample('Textile manufacturing')">Textile manufacturing</button>
-                <button class="example-btn" onclick="fillExample('Food delivery service')">Food delivery service</button>
-                <button class="example-btn" onclick="fillExample('Construction business')">Construction business</button> -->
+                
             </div>
         </div>
     </section>
@@ -105,7 +123,7 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/search">Search</a></li>
                     <li><a href="/about">About</a></li>
-                    <li><a href="/how-it-works">How It Works</a></li>
+                    <li><a href="">How It Works</a></li>
                 </ul>
             </div>
 
@@ -123,8 +141,8 @@
                 <h4>Contact Info</h4>
                 <ul>
                     <li>📧 support@nicfinder.com</li>
-                    <li>📞 +1 (555) 123-4567</li>
-                    <li>📍 New Delhi, India</li>
+                    <li>📞 +91 9328333378</li>
+                    <li>📍 Anand, Gujarat, India</li>
                 </ul>
             </div>
         </div>
@@ -135,31 +153,65 @@
         </div>
     </footer>
 
-    <!-- Chat Button -->
-    <button class="chat-button" onclick="toggleChat()">💬</button>
+    <!-- Modern Chat Button -->
+    <button class="chat-button" onclick="toggleChat()" aria-label="Open chat">💬</button>
 
-    <!-- Chatbot Container -->
-    <div class="chatbot-container hidden" id="chatbot">
+    <!-- Modern Chatbot Container -->
+    <div class="chatbot-container" id="chatbot">
         <div class="chatbot-header">
-            <div class="chatbot-title">💬 NIC Code Assistant</div>
-            <button class="close-chat" onclick="toggleChat()">×</button>
+            <div class="chatbot-title">
+                <span>NIC Code Assistant</span>
+                
+            </div>
+            <button class="close-chat" onclick="toggleChat()" aria-label="Close chat">×</button>
         </div>
 
         <div class="chat-messages" id="chatMessages">
-            <div class="bot-message">
-                Hi! I'm here to help you find the right NIC codes. What's your business about?
-            </div>
+            <!-- Messages will be added dynamically -->
         </div>
 
         <div class="chat-input-container">
-            <input type="text" class="chat-input" placeholder="Ask about NIC codes..." id="chatInput"
-                onkeypress="handleChatKeypress(event)">
-            <button class="send-button" onclick="sendMessage()">→</button>
+            <textarea class="chat-input" placeholder="Describe your business to find NIC codes..." id="chatInput"
+                onkeypress="handleChatKeypress(event)" rows="1"></textarea>
+            <button class="send-button" onclick="sendMessage()" aria-label="Send message">→</button>
         </div>
     </div>
 
+    
+    <div class="change-password-backdrop" id="cpBackdrop">
+        <div class="change-password-modal" id="cpModal">
+            <div class="cp-header">
+                <div class="cp-title">Change Password</div>
+                <button class="cp-close" onclick="closeChangePassword()">×</button>
+            </div>
+            <div class="cp-body">
+                <div class="cp-alert error" id="cp_error"></div>
+                <div class="cp-alert success" id="cp_success"></div>
+                <div class="cp-grid">
+                    <div>
+                        <label class="cp-label" for="cp_old">Current Password</label>
+                        <input class="cp-input" id="cp_old" type="password" autocomplete="current-password" placeholder="Enter current password">
+                    </div>
+                    <div>
+                        <label class="cp-label" for="cp_new">New Password</label>
+                        <input class="cp-input" id="cp_new" type="password" autocomplete="new-password" placeholder="At least 8 chars, upper/lower/special">
+                        <div class="cp-hint">Use a strong password to protect your account</div>
+                    </div>
+                    <div>
+                        <label class="cp-label" for="cp_confirm">Confirm New Password</label>
+                        <input class="cp-input" id="cp_confirm" type="password" autocomplete="new-password" placeholder="Re-enter new password">
+                    </div>
+                </div>
+            </div>
+            <div class="cp-footer">
+                <button class="cp-btn secondary" onclick="closeChangePassword()">Cancel</button>
+                <button class="cp-btn primary" onclick="submitChangePassword()">Update Password</button>
+            </div>
+        </div>
+    </div>
     <script src="{{ url_for('static', filename='js/home.js') }}"></script>
     <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/change_password.js') }}"></script>
 
 </body>
 

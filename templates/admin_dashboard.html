@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIC Map - Admin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🔍</div>
+                <h1>NIC Map</h1>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="{{ url_for('admin_dashboard') }}"
+                        class="nav-link {{ 'active' if active_section is not defined or active_section == 'dashboard' else '' }}"
+                        data-section="dashboard">
+                        <span class="nav-icon">📊</span>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('admin_feedback') }}"
+                        class="nav-link {{ 'active' if active_section == 'feedback' else '' }}" data-section="feedback">
+                        <span class="nav-icon">💬</span>
+                        Feedback
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('admin_nic_management') }}"
+                        class="nav-link {{ 'active' if active_section == 'nic-management' else '' }}"
+                        data-section="nic-management">
+                        <span class="nav-icon">📁</span>
+                        NIC Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('admin_settings') }}"
+                        class="nav-link {{ 'active' if active_section == 'settings' else '' }}" data-section="settings">
+                        <span class="nav-icon">⚙️</span>
+                        Settings
+                    </a>
+                </li>
+            </ul>
+
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                Logout
+            </a>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard"
+                class="content-section {{ 'active' if active_section is not defined or active_section == 'dashboard' else '' }}">
+                <div class="page-header">
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-subtitle">Overview of your NIC Map system performance</p>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card blue">
+                        <div class="stat-header">
+                            <div class="stat-icon blue">👥</div>
+                        </div>
+                        <div class="stat-value" id="totalUsers">{{ total_users }}</div>
+                        <div class="stat-label">Total Users</div>
+                        <div class="stat-change positive">Active Users</div>
+                    </div>
+
+                    <div class="stat-card green">
+                        <div class="stat-header">
+                            <div class="stat-icon green">🔍</div>
+                        </div>
+                        <div class="stat-value" id="totalSearches">{{ total_searches }}</div>
+                        <div class="stat-label">Total Searches</div>
+                        <div class="stat-change positive">All Time</div>
+                    </div>
+
+                    <div class="stat-card orange">
+                        <div class="stat-header">
+                            <div class="stat-icon orange">✅</div>
+                        </div>
+                        <div class="stat-value" id="successRate">94.2%</div>
+                        <div class="stat-label">Success Rate</div>
+                        <div class="stat-change positive">Based on feedback</div>
+                    </div>
+
+                    <div class="stat-card purple">
+                        <div class="stat-header">
+                            <div class="stat-icon purple">⭐</div>
+                        </div>
+                        <div class="stat-value" id="avgRating">4.6</div>
+                        <div class="stat-label">Average Rating</div>
+                        <div class="stat-change positive">User satisfaction</div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <!-- Top Search Queries -->
+                    <div class="chart-card">
+                        <h3 class="chart-title">Top Search Queries</h3>
+                        <p class="chart-subtitle">Most popular user search terms</p>
+                        <ul class="query-list">
+                            {% if top_queries %}
+                            {% for query in top_queries %}
+                            <li class="query-item">
+                                <div class="rank-badge">#{{ loop.index }}</div>
+                                <div class="query-info">
+                                    <div class="query-text">"{{ query.query }}"</div>
+                                    <div class="query-stats">Searched {{ query.count }} times</div>
+                                </div>
+                                <div class="query-count">{{ query.count }}</div>
+                            </li>
+                            {% endfor %}
+                            {% else %}
+                            <li class="query-item">
+                                <div class="query-info">
+                                    <div class="query-text">No search queries yet</div>
+                                </div>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <!-- Most Matched NIC Codes -->
+                    <div class="chart-card">
+                        <h3 class="chart-title">Most Matched NIC Codes</h3>
+                        <p class="chart-subtitle">Classification codes with highest search volume</p>
+                        <ul class="nic-list" id="topNicCodes">
+                            <!-- This will be populated via JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feedback Section -->
+            <section id="feedback" class="content-section {{ 'active' if active_section == 'feedback' else '' }}">
+                <div class="page-header">
+                    <h1 class="page-title">Feedback Management</h1>
+                    <p class="page-subtitle">Review and respond to user feedback</p>
+                </div>
+
+                <div class="feedback-filters">
+                    <button class="filter-btn active" data-status="all">All Feedback</button>
+                    <button class="filter-btn" data-status="pending">Pending</button>
+                    <button class="filter-btn" data-status="resolved">Resolved</button>
+                    <button class="filter-btn" data-status="review">Under Review</button>
+                </div>
+
+                <div class="feedback-list">
+                    {% if feedback_messages %}
+                    {% for msg in feedback_messages %}
+                    <div class="feedback-item" data-id="{{ msg.message_id }}">
+                        <div class="feedback-header">
+                            <div class="feedback-meta">
+                                <div class="user-name">{{ msg.name }}</div>
+                                <div class="feedback-date">{{ msg.created_at.strftime('%d %b %Y, %H:%M') }} • {{
+                                    msg.email }}</div>
+                            </div>
+                            <span class="status-badge status-pending">Pending</span>
+                        </div>
+                        <div class="feedback-text">
+                            {{ msg.message }}
+                        </div>
+                        <div class="feedback-actions">
+                            <!-- <button class="btn btn-primary"
+                                onclick="respondToFeedback({{ msg.message_id }}, '{{ msg.email }}')">Respond</button>
+                            <button class="btn btn-success" onclick="markResolved({{ msg.message_id }})">Mark
+                                Resolved</button> -->
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="feedback-item">
+                        <div class="feedback-text">No feedback messages yet.</div>
+                    </div>
+                    {% endif %}
+                </div>
+            </section>
+
+            <!-- NIC Management Section -->
+            <section id="nic-management"
+                class="content-section {{ 'active' if active_section == 'nic-management' else '' }}">
+                <div class="page-header">
+                    <h1 class="page-title">NIC Data Management</h1>
+                    <p class="page-subtitle">Upload and manage NIC classification data</p>
+                </div>
+
+                <div class="upload-section">
+                    <h3>Update NIC Database</h3>
+                    <p style="margin-bottom: 1.5rem; color: #666;">Upload a CSV or PDF file to update the NIC codes and
+                        descriptions</p>
+
+                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                        <div class="upload-icon">FILE</div>
+                        <h4>Drag and drop your file here</h4>
+                        <p style="margin: 1rem 0; color: #666;">or</p>
+                        <button class="upload-btn">Choose File</button>
+                        <p style="margin-top: 1rem; color: #666; font-size: 14px;">Supports CSV and PDF files (Max 10MB)
+                        </p>
+                    </div>
+
+                    <input type="file" id="fileInput" class="file-input" accept=".csv,.pdf"
+                        onchange="handleFileSelect(event)">
+
+                    <div id="uploadStatus" style="margin-top: 1rem; display: none;">
+                        <div id="fileName" style="font-weight: 600; color: #333;"></div>
+                        <div id="fileSize" style="color: #666; font-size: 14px;"></div>
+                        <button class="btn btn-primary" onclick="uploadFile()" style="margin-top: 1rem;">Upload
+                            File</button>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Current Database Status</h3>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div>
+                            <div style="font-size: 24px; font-weight: 700; color: #1e74ba;">21,456</div>
+                            <div style="color: #666;">Total NIC Codes</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 24px; font-weight: 700; color: #27ae60;">Today</div>
+                            <div style="color: #666;">Last Updated</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 24px; font-weight: 700; color: #f39c12;">v2024.1</div>
+                            <div style="color: #666;">Database Version</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="content-section {{ 'active' if active_section == 'settings' else '' }}">
+                <div class="page-header">
+                    <h1 class="page-title">Admin Settings</h1>
+                    <p class="page-subtitle">Configure system settings and preferences</p>
+                </div>
+
+                <div class="chart-card">
+                    <h3>System Configuration</h3>
+                    <form id="settingsForm" class="settings-form">
+                        <div class="form-group">
+                            <label class="form-label">Site Title</label>
+                            <input type="text" class="form-input" value="NIC Map" name="siteTitle">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Admin Email</label>
+                            <input type="email" class="form-input" value="admin@nicmap.com" name="adminEmail">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Search Results Limit</label>
+                            <input type="number" class="form-input" value="10" name="searchLimit">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Enable Google Login</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="googleLogin" checked>
+                                <label for="googleLogin"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Maintenance Mode</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="maintenanceMode">
+                                <label for="maintenanceMode"></label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Response Modal -->
+    <div id="responseModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Respond to Feedback</h2>
+            </div>
+            <form onsubmit="sendResponse(event)">
+                <input type="hidden" id="feedbackId">
+                <div class="form-group">
+                    <label class="form-label">User Email</label>
+                    <input type="email" id="userEmail" class="form-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Response Message</label>
+                    <textarea id="responseMessage" class="form-textarea" placeholder="Type your response here..."
+                        required></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: end;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Send Response</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

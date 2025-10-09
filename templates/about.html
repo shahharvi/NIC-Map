@@ -1,27 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - NIC Finder</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/change_password.css') }}">
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
-        <nav class="nav-container">
+        <div class="nav-container">
             <div class="logo">
                 <div class="logo-icon">🔍</div>
                 NIC Map
             </div>
-            <ul class="nav-menu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/search">Search</a></li>
-                <li><a href="/about" class="active">About</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-            <div class="user-icon">JD</div>
-        </nav>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            {% if session.get('user_id') %}
+            <div class="user-dropdown">
+                <div class="user-icon" onclick="toggleUserMenu()">
+                    {{ session['user_name'][0:1]|upper }}{{ session['user_name'].split(' ')[-1][0:1]|upper if session['user_name'].count(' ') else '' }}
+                </div>
+                <div class="user-menu" id="userMenu" style="display:none;">
+                    <div class="user-info">
+                        <div class="user-name">{{ session['user_name'] }}</div>
+                        <div class="user-email">{{ session.get('user_email', '') }}</div>
+                    </div>
+                    <div class="user-links">
+                        <a href="/"><span class="nav-icon">🏠</span>Home</a>
+                        <a href="#" onclick="openChangePassword(); return false;"><span class="nav-icon">👤</span>Change Password</a>
+                    </div>
+                    <div class="logout-link">
+                        <a href="{{ url_for('logout') }}" style="color: #e74c3c;"><span>↩️</span> Logout</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="nav-buttons">
+                <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+                <a href="{{ url_for('register') }}" class="get-started-btn">Register</a>
+            </div>
+            {% endif %}
+        </div>
     </header>
 
     <!-- Hero Section -->
@@ -29,7 +59,7 @@
         <div class="breadcrumb">About Our Platform</div>
         <h1 class="hero-title">Simplifying Business Classification</h1>
         <p class="hero-description">
-            We leverage advanced AI technology to help businesses find their perfect NIC classification codes, 
+            We leverage advanced AI technology to help businesses find their perfect NIC classification codes,
             making regulatory compliance and business registration seamless and accurate.
         </p>
     </section>
@@ -39,11 +69,11 @@
         <div class="mission-content">
             <h2>Our Mission</h2>
             <p>
-                To democratize access to accurate business classification by providing an intelligent, 
+                To democratize access to accurate business classification by providing an intelligent,
                 user-friendly platform that eliminates the complexity of navigating traditional NIC code databases.
             </p>
             <p>
-                We believe every entrepreneur and business owner should focus on building their business, 
+                We believe every entrepreneur and business owner should focus on building their business,
                 not struggling with bureaucratic classifications.
             </p>
         </div>
@@ -52,7 +82,8 @@
             <div class="feature-item">
                 <div class="feature-icon">
                     <svg viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                     </svg>
                 </div>
                 <div class="feature-content">
@@ -64,7 +95,8 @@
             <div class="feature-item">
                 <div class="feature-icon">
                     <svg viewBox="0 0 24 24">
-                        <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                        <path
+                            d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z" />
                     </svg>
                 </div>
                 <div class="feature-content">
@@ -87,10 +119,11 @@
                 <div class="value-item">
                     <div class="value-icon">
                         <svg viewBox="0 0 24 24">
-                            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1.5V1.45C14.8 1.2 14.4 1 14 1H10C9.6 1 9.2 1.2 9 1.45V1.5L3 7V9H21Z"/>
-                            <circle cx="7" cy="18" r="2"/>
-                            <circle cx="17" cy="18" r="2"/>
-                            <path d="M5 16L7 18L17 18L19 16"/>
+                            <path
+                                d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1.5V1.45C14.8 1.2 14.4 1 14 1H10C9.6 1 9.2 1.2 9 1.45V1.5L3 7V9H21Z" />
+                            <circle cx="7" cy="18" r="2" />
+                            <circle cx="17" cy="18" r="2" />
+                            <path d="M5 16L7 18L17 18L19 16" />
                         </svg>
                     </div>
                     <h3>User-Centric</h3>
@@ -100,7 +133,8 @@
                 <div class="value-item">
                     <div class="value-icon">
                         <svg viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                         </svg>
                     </div>
                     <h3>Excellence</h3>
@@ -110,8 +144,9 @@
                 <div class="value-item">
                     <div class="value-icon">
                         <svg viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                            <circle cx="12" cy="12" r="3"/>
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                            <circle cx="12" cy="12" r="3" />
                         </svg>
                     </div>
                     <h3>Innovation</h3>
@@ -126,7 +161,7 @@
         <div class="cta-container">
             <h2>Ready to Find Your NIC Code?</h2>
             <p>Join thousands of businesses who have simplified their classification process with our platform</p>
-            
+
             <div class="cta-buttons">
                 <a href="/search" class="btn btn-primary">Start Searching</a>
                 <a href="/contact" class="btn btn-secondary">Contact Us</a>
@@ -134,7 +169,7 @@
         </div>
     </section>
 
-       <!-- Footer -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-brand">
@@ -177,33 +212,83 @@
 
         <div class="footer-bottom">
             <div>© 2024 NIC Finder. All rights reserved.</div>
-            
+
         </div>
     </footer>
 
-    <!-- Chat Button -->
-    <button class="chat-button" onclick="toggleChat()">💬</button>
-    
-    <!-- Chat Button -->
-        <div class="chatbot-container hidden" id="chatbot">
+    <!-- Modern Chat Button -->
+    <button class="chat-button" onclick="toggleChat()" aria-label="Open chat">💬</button>
+
+    <!-- Modern Chatbot Container -->
+    <div class="chatbot-container" id="chatbot">
         <div class="chatbot-header">
-            <div class="chatbot-title">💬 NIC Code Assistant</div>
-            <button class="close-chat" onclick="toggleChat()">×</button>
+            <div class="chatbot-title">
+                <span>NIC Code Assistant</span>
+                <div class="chatbot-status">
+                
+                </div>
+            </div>
+            <button class="close-chat" onclick="toggleChat()" aria-label="Close chat">×</button>
         </div>
 
         <div class="chat-messages" id="chatMessages">
-            <div class="bot-message">
-                Hi! I'm here to help you find the right NIC codes. What's your business about?
-            </div>
+            <!-- Messages will be added dynamically -->
         </div>
 
         <div class="chat-input-container">
-            <input type="text" class="chat-input" placeholder="Ask about NIC codes..." id="chatInput"
-                onkeypress="handleChatKeypress(event)">
-            <button class="send-button" onclick="sendMessage()">→</button>
+            <textarea class="chat-input" placeholder="Describe your business to find NIC codes..." id="chatInput"
+                onkeypress="handleChatKeypress(event)" rows="1"></textarea>
+            <button class="send-button" onclick="sendMessage()" aria-label="Send message">→</button>
         </div>
     </div>
 
+
+    <div class="change-password-backdrop" id="cpBackdrop">
+        <div class="change-password-modal" id="cpModal">
+            <div class="cp-header">
+                <div class="cp-title">Change Password</div>
+                <button class="cp-close" onclick="closeChangePassword()">×</button>
+            </div>
+            <div class="cp-body">
+                <div class="cp-alert error" id="cp_error"></div>
+                <div class="cp-alert success" id="cp_success"></div>
+                <div class="cp-grid">
+                    <div>
+                        <label class="cp-label" for="cp_old">Current Password</label>
+                        <input class="cp-input" id="cp_old" type="password" autocomplete="current-password" placeholder="Enter current password">
+                    </div>
+                    <div>
+                        <label class="cp-label" for="cp_new">New Password</label>
+                        <input class="cp-input" id="cp_new" type="password" autocomplete="new-password" placeholder="At least 8 chars, upper/lower/special">
+                        <div class="cp-hint">Use a strong password to protect your account</div>
+                    </div>
+                    <div>
+                        <label class="cp-label" for="cp_confirm">Confirm New Password</label>
+                        <input class="cp-input" id="cp_confirm" type="password" autocomplete="new-password" placeholder="Re-enter new password">
+                    </div>
+                </div>
+            </div>
+            <div class="cp-footer">
+                <button class="cp-btn secondary" onclick="closeChangePassword()">Cancel</button>
+                <button class="cp-btn primary" onclick="submitChangePassword()">Update Password</button>
+            </div>
+        </div>
+    </div>
     <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/change_password.js') }}"></script>
+    <script>
+        function toggleUserMenu() {
+            var menu = document.getElementById('userMenu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+        document.addEventListener('click', function (event) {
+            var menu = document.getElementById('userMenu');
+            var icon = document.querySelector('.user-icon');
+            if (menu && icon && !icon.contains(event.target) && !menu.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
+    </script>
 </body>
+
 </html>

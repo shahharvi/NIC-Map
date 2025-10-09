@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,22 +8,49 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
 
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
-        <nav class="nav-container">
-             <div class="logo">
+        <div class="nav-container">
+            <div class="logo">
                 <div class="logo-icon">🔍</div>
                 NIC Map
             </div>
-            <ul class="nav-menu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/search">Search</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact" class="active">Contact</a></li>
-            </ul>
-            <div class="user-icon">JD</div>
-        </nav>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            {% if session.get('user_id') %}
+            <div class="user-dropdown">
+                <div class="user-icon" onclick="toggleUserMenu()">
+                    {{ session['user_name'][0:1]|upper }}{{ session['user_name'].split(' ')[-1][0:1]|upper if session['user_name'].count(' ') else '' }}
+                </div>
+                <div class="user-menu" id="userMenu" style="display:none;">
+                    <div class="user-info">
+                        <div class="user-name">{{ session['user_name'] }}</div>
+                        <div class="user-email">{{ session.get('user_email', '') }}</div>
+                    </div>
+                    <div class="user-links">
+                        <a href="/"><span class="nav-icon">🏠</span>Home</a>
+                        <a href="#" onclick="openChangePassword(); return false;"><span class="nav-icon">👤</span>Change Password</a>
+                    </div>
+                    <div class="logout-link">
+                        <a href="{{ url_for('logout') }}" style="color: #e74c3c;"><span>↩️</span> Logout</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="nav-buttons">
+                <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+                <a href="{{ url_for('register') }}" class="get-started-btn">Register</a>
+            </div>
+            {% endif %}
+        </div>
     </header>
 
     <!-- Hero Section -->
@@ -30,7 +58,8 @@
         <div class="breadcrumb">Get In Touch</div>
         <h1 class="hero-title">Contact Our Team</h1>
         <p class="hero-description">
-            Have questions about NIC codes or need assistance with our platform? We're here to help you find the right business classification.
+            Have questions about NIC codes or need assistance with our platform? We're here to help you find the right
+            business classification.
         </p>
     </section>
 
@@ -38,12 +67,14 @@
     <section class="contact-section">
         <div class="contact-info">
             <h2>Get in Touch</h2>
-            <p>Our support team is available to help you with any questions or concerns about NIC code classification.</p>
+            <p>Our support team is available to help you with any questions or concerns about NIC code classification.
+            </p>
 
             <div class="contact-item">
                 <div class="contact-icon">
                     <svg viewBox="0 0 24 24">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        <path
+                            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                     </svg>
                 </div>
                 <div class="contact-details">
@@ -56,7 +87,8 @@
             <div class="contact-item">
                 <div class="contact-icon">
                     <svg viewBox="0 0 24 24">
-                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        <path
+                            d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                     </svg>
                 </div>
                 <div class="contact-details">
@@ -69,7 +101,8 @@
             <div class="contact-item">
                 <div class="contact-icon">
                     <svg viewBox="0 0 24 24">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        <path
+                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                     </svg>
                 </div>
                 <div class="contact-details">
@@ -82,7 +115,8 @@
             <div class="contact-item">
                 <div class="contact-icon">
                     <svg viewBox="0 0 24 24">
-                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zM12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                        <path
+                            d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zM12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
                     </svg>
                 </div>
                 <div class="contact-details">
@@ -117,12 +151,13 @@
 
                 <div class="form-group">
                     <label for="message">Message *</label>
-                    <textarea id="message" name="message" placeholder="Tell us how we can help you..." required></textarea>
+                    <textarea id="message" name="message" placeholder="Tell us how we can help you..."
+                        required></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
                     </svg>
                     Send Message
                 </button>
@@ -142,31 +177,35 @@
                 <div class="faq-column">
                     <div class="faq-item">
                         <h3>How accurate are your NIC code suggestions?</h3>
-                        <p>Our AI-powered system provides highly accurate suggestions with confidence scores, typically achieving 85-95% accuracy based on business descriptions.</p>
+                        <p>Our AI-powered system provides highly accurate suggestions with confidence scores, typically
+                            achieving 85-95% accuracy based on business descriptions.</p>
                     </div>
 
                     <div class="faq-item">
                         <h3>Can I get help with complex business classifications?</h3>
-                        <p>Yes! Our expert support team can provide personalized assistance for complex or multi-faceted business classifications.</p>
+                        <p>Yes! Our expert support team can provide personalized assistance for complex or multi-faceted
+                            business classifications.</p>
                     </div>
                 </div>
 
                 <div class="faq-column">
                     <div class="faq-item">
                         <h3>Is there a cost to use this service?</h3>
-                        <p>Basic NIC code search is free for all users. Premium features like saving results and detailed analytics require a subscription.</p>
+                        <p>Basic NIC code search is free for all users. Premium features like saving results and
+                            detailed analytics require a subscription.</p>
                     </div>
 
                     <div class="faq-item">
                         <h3>How often is your NIC code database updated?</h3>
-                        <p>We regularly update our database to reflect the latest NIC code changes and government notifications, ensuring current and accurate information.</p>
+                        <p>We regularly update our database to reflect the latest NIC code changes and government
+                            notifications, ensuring current and accurate information.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-        <!-- Footer -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-brand">
@@ -209,33 +248,84 @@
 
         <div class="footer-bottom">
             <div>© 2024 NIC Finder. All rights reserved.</div>
-        
+
         </div>
     </footer>
 
-    <!-- Chat Button -->
-    <button class="chat-button" onclick="toggleChat()">💬</button>
+    <!-- Modern Chat Button -->
+    <button class="chat-button" onclick="toggleChat()" aria-label="Open chat">💬</button>
 
-    <!-- Chat Button -->
-        <div class="chatbot-container hidden" id="chatbot">
+    <!-- Modern Chatbot Container -->
+    <div class="chatbot-container" id="chatbot">
         <div class="chatbot-header">
-            <div class="chatbot-title">💬 NIC Code Assistant</div>
-            <button class="close-chat" onclick="toggleChat()">×</button>
+            <div class="chatbot-title">
+                <span>NIC Code Assistant</span>
+                <div class="chatbot-status">
+                
+                </div>
+            </div>
+            <button class="close-chat" onclick="toggleChat()" aria-label="Close chat">×</button>
         </div>
 
         <div class="chat-messages" id="chatMessages">
-            <div class="bot-message">
-                Hi! I'm here to help you find the right NIC codes. What's your business about?
-            </div>
+            <!-- Messages will be added dynamically -->
         </div>
 
         <div class="chat-input-container">
-            <input type="text" class="chat-input" placeholder="Ask about NIC codes..." id="chatInput"
-                onkeypress="handleChatKeypress(event)">
-            <button class="send-button" onclick="sendMessage()">→</button>
+            <textarea class="chat-input" placeholder="Describe your business to find NIC codes..." id="chatInput"
+                onkeypress="handleChatKeypress(event)" rows="1"></textarea>
+            <button class="send-button" onclick="sendMessage()" aria-label="Send message">→</button>
         </div>
     </div>
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/change_password.css') }}">
+    <div class="change-password-backdrop" id="cpBackdrop">
+        <div class="change-password-modal" id="cpModal">
+            <div class="cp-header">
+                <div class="cp-title">Change Password</div>
+                <button class="cp-close" onclick="closeChangePassword()">×</button>
+            </div>
+            <div class="cp-body">
+                <div class="cp-alert error" id="cp_error"></div>
+                <div class="cp-alert success" id="cp_success"></div>
+                <div class="cp-grid">
+                    <div>
+                        <label class="cp-label" for="cp_old">Current Password</label>
+                        <input class="cp-input" id="cp_old" type="password" autocomplete="current-password" placeholder="Enter current password">
+                    </div>
+                    <div>
+                        <label class="cp-label" for="cp_new">New Password</label>
+                        <input class="cp-input" id="cp_new" type="password" autocomplete="new-password" placeholder="At least 8 chars, upper/lower/special">
+                        <div class="cp-hint">Use a strong password to protect your account</div>
+                    </div>
+                    <div>
+                        <label class="cp-label" for="cp_confirm">Confirm New Password</label>
+                        <input class="cp-input" id="cp_confirm" type="password" autocomplete="new-password" placeholder="Re-enter new password">
+                    </div>
+                </div>
+            </div>
+            <div class="cp-footer">
+                <button class="cp-btn secondary" onclick="closeChangePassword()">Cancel</button>
+                <button class="cp-btn primary" onclick="submitChangePassword()">Update Password</button>
+            </div>
+        </div>
+    </div>
     <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/change_password.js') }}"></script>
+    <script>
+        function toggleUserMenu() {
+            var menu = document.getElementById('userMenu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+        document.addEventListener('click', function (event) {
+            var menu = document.getElementById('userMenu');
+            var icon = document.querySelector('.user-icon');
+            if (menu && icon && !icon.contains(event.target) && !menu.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
+    </script>
 </body>
+
 </html>

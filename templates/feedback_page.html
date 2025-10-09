@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIC Finder - Feedback Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/feedback.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fas fa-search"></i>
+            NIC Finder
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/admin_dashboard" >
+                    <i class="fas fa-th-large"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin_search-analytics" >
+                    <i class="fas fa-chart-bar"></i>
+                    Search Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/feedback" >
+                    <i class="fas fa-comments"></i>
+                    Feedback
+                </a>
+            </li>
+            <li class="nav-item">
+                <!-- <a href="/admin/settings" >
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a> -->
+            </li>
+        </ul>
+
+        <div class="logout-section">
+            <a href="/login" class="logout-link">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="header">
+            <h1 class="page-title">User Feedback</h1>
+            <div class="filter-dropdown">
+                <div class="dropdown">
+                    <button class="dropdown-button">
+                        All Feedback
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon total-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-title">Total Feedback</div>
+                </div>
+                <div class="stat-value">5</div>
+                <div class="stat-subtitle">All time feedback received</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon pending-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-title">Pending Responses</div>
+                </div>
+                <div class="stat-value">3</div>
+                <div class="stat-subtitle">Awaiting admin response</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon rating-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-title">Average Rating</div>
+                </div>
+                <div class="stat-value">3.8/5.0</div>
+                <div class="stat-subtitle">Overall satisfaction score</div>
+            </div>
+        </div>
+
+        <div class="feedback-container">
+            <div class="feedback-header">
+                <h3 class="feedback-title">Recent Feedback</h3>
+                <p class="feedback-subtitle">Latest user reviews and suggestions</p>
+            </div>
+
+            <div class="feedback-list">
+                <div class="feedback-item">
+                    <div class="feedback-header-row">
+                        <div class="user-info">
+                            <div class="user-avatar">JS</div>
+                            <div class="user-details">
+                                <h4>John Smith</h4>
+                                <div class="user-meta">
+                                    <span class="status-badge status-pending">pending</span>
+                                    <span class="status-badge status-accuracy">accuracy</span>
+                                    <span>2024-01-15</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="respond-btn">Respond</button>
+                        </div>
+                    </div>
+
+                    <div class="star-rating">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                    </div>
+
+                    <div class="feedback-title-text">Excellent NIC code matching</div>
+                    <div class="feedback-content">
+                        The AI perfectly matched my software development company to the correct NIC code 62010. Very impressed with the accuracy!
+                    </div>
+                    <div class="feedback-query">
+                        <span class="query-label">Query:</span> "software development company" • 
+                        <span class="query-label">NIC:</span> <span class="nic-code">62010</span>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback-header-row">
+                        <div class="user-info">
+                            <div class="user-avatar">RP</div>
+                            <div class="user-details">
+                                <h4>Ravi Patel</h4>
+                                <div class="user-meta">
+                                    <span class="status-badge status-pending">pending</span>
+                                    <span>2024-01-14</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="respond-btn">Respond</button>
+                        </div>
+                    </div>
+
+                    <div class="star-rating">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star empty"></i>
+                    </div>
+
+                    <div class="feedback-title-text">Good but could be faster</div>
+                    <div class="feedback-content">
+                        The search results are accurate but sometimes takes a bit longer to respond. Overall satisfied with the service.
+                    </div>
+                    <div class="feedback-query">
+                        <span class="query-label">Query:</span> "textile manufacturing business" • 
+                        <span class="query-label">NIC:</span> <span class="nic-code">13101</span>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback-header-row">
+                        <div class="user-info">
+                            <div class="user-avatar">MS</div>
+                            <div class="user-details">
+                                <h4>Maria Santos</h4>
+                                <div class="user-meta">
+                                    <span class="status-badge status-pending">pending</span>
+                                    <span>2024-01-13</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="respond-btn">Respond</button>
+                        </div>
+                    </div>
+
+                    <div class="star-rating">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star empty"></i>
+                        <i class="fas fa-star empty"></i>
+                    </div>
+
+                    <div class="feedback-title-text">Helpful but needs improvement</div>
+                    <div class="feedback-content">
+                        Found the NIC code I was looking for, but the search interface could be more intuitive. Adding more search suggestions would help.
+                    </div>
+                    <div class="feedback-query">
+                        <span class="query-label">Query:</span> "food processing unit" • 
+                        <span class="query-label">NIC:</span> <span class="nic-code">10890</span>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback-header-row">
+                        <div class="user-info">
+                            <div class="user-avatar">AK</div>
+                            <div class="user-details">
+                                <h4>Amit Kumar</h4>
+                                <div class="user-meta">
+                                    <span>2024-01-12</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="respond-btn" style="opacity: 0.6; cursor: not-allowed;" disabled>Responded</button>
+                        </div>
+                    </div>
+
+                    <div class="star-rating">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                    </div>
+
+                    <div class="feedback-title-text">Perfect match for construction business</div>
+                    <div class="feedback-content">
+                        Exactly what I needed! The system quickly identified the right NIC code for my construction business. Great tool for entrepreneurs.
+                    </div>
+                    <div class="feedback-query">
+                        <span class="query-label">Query:</span> "construction business" • 
+                        <span class="query-label">NIC:</span> <span class="nic-code">41000</span>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback-header-row">
+                        <div class="user-info">
+                            <div class="user-avatar">SG</div>
+                            <div class="user-details">
+                                <h4>Sarah Green</h4>
+                                <div class="user-meta">
+                                    <span>2024-01-11</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="respond-btn" style="opacity: 0.6; cursor: not-allowed;" disabled>Responded</button>
+                        </div>
+                    </div>
+
+                    <div class="star-rating">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star empty"></i>
+                    </div>
+
+                    <div class="feedback-title-text">Very useful for digital marketing</div>
+                    <div class="feedback-content">
+                        This tool saved me hours of manual searching. The AI understood my query about digital marketing agency perfectly.
+                    </div>
+                    <div class="feedback-query">
+                        <span class="query-label">Query:</span> "digital marketing agency" • 
+                        <span class="query-label">NIC:</span> <span class="nic-code">73200</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/static/js/feedback.js"></script>
+</body>
+</html>

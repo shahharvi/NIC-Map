@@ -1,37 +1,5 @@
-
-// Sample NIC codes data (replace with actual API call)
-const sampleResults = [
-    {
-        code: "13924",
-        description: "Manufacture of bedding, quilts, pillows, sleeping bags etc.",
-        businessType: "Cotton bedsheet manufacturing",
-        match: "72.06%"
-    },
-    {
-        code: "13929",
-        description: "Manufacture of other made-up textile articles n.e.c.",
-        businessType: "Textile manufacturing",
-        match: "68.45%"
-    },
-    {
-        code: "13921",
-        description: "Manufacture of soft furnishings",
-        businessType: "Home textile products",
-        match: "65.32%"
-    },
-    {
-        code: "13912",
-        description: "Manufacture of canvas goods, sails etc.",
-        businessType: "Canvas and textile goods",
-        match: "62.18%"
-    },
-    {
-        code: "13911",
-        description: "Manufacture of carpets and rugs",
-        businessType: "Floor covering manufacturing",
-        match: "58.94%"
-    }
-];
+// --- Remove sampleResults (we now use real API) ---
+// const sampleResults = [ ... ]   ❌ DELETE THIS
 
 const searchForm = document.getElementById('searchForm');
 const searchButton = document.getElementById('searchButton');
@@ -60,15 +28,33 @@ searchForm.addEventListener('submit', async function (e) {
     resultsSection.classList.remove('show');
 
     try {
-        // Simulate API call (replace with actual API endpoint)
-        await simulateAPICall(query);
+        // 🔹 Call Flask API instead of simulateAPICall
+        const res = await fetch("/api/search", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ description: query })
+        });
 
-        // Show results
-        displayResults(query, sampleResults);
+        const data = await res.json();
+
+        if (data.success) {
+            // Map API results to UI format
+            const formattedResults = data.results.map(r => ({
+                code: r.code,
+                description: r.description,
+                businessType: "Predicted from query",  // placeholder
+                match: (r.confidence).toFixed(2) + "%" // backend should return 0–100
+            }));
+
+            displayResults(query, formattedResults);
+        } else {
+            console.error("Error:", data.error || "No results found");
+            resultsCount.textContent = `No NIC codes found for "${query}"`;
+            resultsGrid.innerHTML = "";
+        }
 
     } catch (error) {
         console.error('Search failed:', error);
-        // Handle error (show error message)
     } finally {
         // Reset button state
         searchButton.disabled = false;
@@ -79,13 +65,6 @@ searchForm.addEventListener('submit', async function (e) {
         processingText.style.display = 'none';
     }
 });
-
-async function simulateAPICall(query) {
-    // Simulate network delay
-    return new Promise(resolve => {
-        setTimeout(resolve, 2000 + Math.random() * 1000);
-    });
-}
 
 function displayResults(query, results) {
     resultsCount.textContent = `Found ${results.length} matching NIC codes for "${query}"`;
@@ -126,33 +105,63 @@ function displayResults(query, results) {
 
 function copyCode(code) {
     navigator.clipboard.writeText(code).then(() => {
-        // Show toast or feedback
         console.log('Code copied:', code);
     });
 }
 
 function giveFeedback(code, type) {
-    // Toggle active state
     const buttons = document.querySelectorAll(`[onclick*="${code}"]`);
     const clickedButton = event.target.closest('.action-button');
 
-    // Remove active from other feedback buttons for this result
     buttons.forEach(btn => {
         if (btn.classList.contains('like') || btn.classList.contains('dislike')) {
             btn.classList.remove('active');
         }
     });
 
-    // Add active to clicked button
     clickedButton.classList.add('active');
 
-    // Send feedback to server
     console.log(`Feedback for ${code}: ${type}`);
 
-    // Here you would typically send the feedback to your Flask backend
+    // 🔹 Optional: Send feedback to backend
     // fetch('/api/feedback', {
     //     method: 'POST',
     //     headers: { 'Content-Type': 'application/json' },
     //     body: JSON.stringify({ code, feedback: type })
     // });
+}
+
+// Feedback modal logic
+const feedbackBtn = document.getElementById('feedbackBtn');
+const feedbackModal = document.getElementById('feedbackModal');
+const closeModal = document.getElementById('closeModal');
+const feedbackForm = document.getElementById('feedbackForm');
+const feedbackText = document.getElementById('feedbackText');
+const feedbackSuccess = document.getElementById('feedbackSuccess');
+
+if (feedbackBtn && feedbackModal && closeModal && feedbackForm) {
+    feedbackBtn.addEventListener('click', function() {
+        feedbackModal.style.display = 'block';
+        feedbackSuccess.style.display = 'none';
+        feedbackText.value = '';
+    });
+    closeModal.addEventListener('click', function() {
+        feedbackModal.style.display = 'none';
+    });
+    feedbackForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const feedback = feedbackText.value.trim();
+        if (!feedback) return;
+        fetch('/api/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ feedback })
+        }).then(() => {
+            feedbackSuccess.style.display = 'block';
+            feedbackText.value = '';
+            setTimeout(() => {
+                feedbackModal.style.display = 'none';
+            }, 1500);
+        });
+    });
 }

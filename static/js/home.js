@@ -45,3 +45,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+
+
+function toggleUserMenu() {
+    var menu = document.getElementById('userMenu');
+    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+}
+document.addEventListener('click', function (event) {
+    var menu = document.getElementById('userMenu');
+    var icon = document.querySelector('.user-icon');
+    if (menu && icon && !icon.contains(event.target) && !menu.contains(event.target)) {
+        menu.style.display = 'none';
+    }
+});
