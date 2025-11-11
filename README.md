@@ -18,7 +18,8 @@ It includes both **User** and **Admin** modules and is implemented as a **Flask 
 - 🔍 Semantic NIC Search – Natural language search for NIC codes  
 - 💬 Mini Chatbot – Conversational search interface  
 - 🌗 Dark / Light Theme toggle for a modern UI  
-- 📄 About Us and 📞 Contact Us pages  
+- 📄 About Us
+- 📞 Contact Us   
 
 ### 🧑‍💻 Admin Side
 - 📊 Admin Dashboard showing analytics:
