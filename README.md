@@ -85,7 +85,3 @@ python
 ```bash
 python app.py 
 ```
-
-
-```bash
-```
