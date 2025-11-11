@@ -1,4 +1,4 @@
-# NIC-Map
+# 🤖 NIC-Map
 ## 🧠 Semantic Search from Text to National Industrial Classification (NIC) Code
 
 ## 📘 Overview
